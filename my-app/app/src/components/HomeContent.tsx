@@ -19,7 +19,7 @@ export default async function HomeContent() {
   
   return (
     <div className="w-full pt-28 pb-10 text-white text-center md:text-right">
-        {data?.user && <h1 className='text-white p-5'>Welcome {data.user.email}</h1>}
+        {data?.user ? <h1 className='text-white p-5'>Welcome {data.user.email}</h1> : <a href='/login' className='py-2 px-4 border-white border bg-transparent hover:bg-white hover:text-black transition-colors duration-300'>Login</a>}
       <div className="w-[40%] mx-auto">
         <div className="text-white text-center text-md mb-5">
           <h1 className="text-3xl mb-3">FJ Films</h1>

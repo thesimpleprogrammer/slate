@@ -33,7 +33,7 @@ export async function uploadVideoToSupabase(
 
   console.log("This is the formdata: " + formData);
 
-  const response = await fetch("http://16.171.65.85:8080/resize", {
+  const response = await fetch("http://13.48.148.216/resize", {
     method: "POST",
     body: formData,
   });

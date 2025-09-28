@@ -44,6 +44,11 @@ export default function LoginForm() {
   return (
     <div className='w-full h-screen flex flex-col justify-center items-center gap-7'>
       <ToastContainer />
+      <div>
+        <h1>For testing purposes only !!!</h1>
+        <h2>Email: test@gmail.com</h2>
+        <h2>Password: Test@1234</h2>
+      </div>
       <h1 className='text-white text-3xl w-[40%]'>Login</h1>
       <form onSubmit={handleSubmit} className='text-white flex flex-col gap-3 w-[40%]'>
         <label htmlFor="email">Email:</label>
