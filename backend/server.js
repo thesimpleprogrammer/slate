@@ -16,7 +16,7 @@ app.use(cors());
 
 // Setup ffmpeg binary
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
-ffmpeg.setFfprobePath(ffprobeInstaller.path);
+ffmpeg.setFfprobePath(ffprobeInstaller.path); 
 
 // ✅ Add this root route for testing
 app.get("/", (req, res) => {
