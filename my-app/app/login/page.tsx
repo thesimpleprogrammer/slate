@@ -44,7 +44,7 @@ export default function LoginForm() {
   return (
     <div className='w-full h-screen flex flex-col justify-center items-center gap-7'>
       <ToastContainer />
-      <div className='text-white'>
+      <div className='text-white w-[40%]'>
         <h1>For testing purposes only !!!</h1>
         <h2>Email: test@gmail.com</h2>
         <h2>Password: Test@1234</h2>
