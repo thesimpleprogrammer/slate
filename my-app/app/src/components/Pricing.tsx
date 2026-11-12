@@ -1,72 +1,33 @@
-// components/PricingPlans.tsx
 "use client";
 
 import { Check } from "lucide-react";
-import { loadStripe } from "@stripe/stripe-js";
 import { useState } from "react";
-
-const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
-if (!publishableKey) {
-  throw new Error("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set");
-}
-const stripePromise = loadStripe(publishableKey);
-
-const plans = [
-  {
-    name: "Basic",
-    price: 9,
-    period: "/month",
-    features: ["Access to core features", "Email support", "1GB storage"],
-    highlighted: false,
-  },
-  {
-    name: "Pro",
-    price: 29,
-    period: "/month",
-    features: [
-      "Everything in Basic",
-      "Priority support",
-      "10GB storage",
-      "Custom integrations",
-    ],
-    highlighted: true, // Stand-out middle plan
-  },
-  {
-    name: "Premium",
-    price: 59,
-    period: "/month",
-    features: [
-      "Everything in Pro",
-      "Dedicated account manager",
-      "Unlimited storage",
-      "Advanced analytics",
-    ],
-    highlighted: false,
-  },
-];
+import { PLANS, type PlanId } from "../lib/plans";
 
 export default function PricingPlans() {
-  const [price, setPrice] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<PlanId | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleCheckout = async (price: number) => {
-    setLoading(true);
-    setPrice(price);
-    console.log("Selected price:", price);
+  const handleCheckout = async (planId: PlanId) => {
+    setSelectedPlan(planId);
+    setError(null);
 
-    const stripe = await stripePromise;
-    const response = await fetch("/api/create-checkout-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        itemPrice: price * 100,
-      }),
-    });
-    const session = await response.json();
-    setLoading(false);
-    await stripe?.redirectToCheckout({ sessionId: session.id });
+    try {
+      // Only the plan id is sent; the server decides the price.
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ planId }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.url) {
+        throw new Error(data.error ?? "Checkout failed");
+      }
+      window.location.assign(data.url);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Checkout failed");
+      setSelectedPlan(null);
+    }
   };
 
   return (
@@ -78,7 +39,7 @@ export default function PricingPlans() {
         </p>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {plans.map((plan) => (
+          {PLANS.map((plan) => (
             <div
               key={plan.name}
               className={`p-6 shadow-md transition-transform ${
@@ -93,9 +54,9 @@ export default function PricingPlans() {
             >
               <h3 className="text-xl font-semibold mb-4">{plan.name}</h3>
               <p className="text-4xl font-bold text-indigo-600">
-                {`$${plan.price}`}
+                {`$${plan.priceUsd}`}
                 <span className="text-base font-normal text-gray-500">
-                  {plan.period}
+                  /month
                 </span>
               </p>
               <ul className="mt-6 space-y-3 text-left">
@@ -107,16 +68,15 @@ export default function PricingPlans() {
                 ))}
               </ul>
               <button
-                onClick={() => {
-                  handleCheckout(plan.price);
-                }}
+                onClick={() => handleCheckout(plan.id)}
+                disabled={selectedPlan !== null}
                 className={`mt-6 w-full py-2 rounded-lg font-semibold transition-colors hover:cursor-pointer ${
                   plan.highlighted
                     ? "bg-indigo-600 text-white hover:bg-indigo-700"
                     : "bg-gray-100 text-gray-800 hover:bg-gray-200"
                 }`}
               >
-                {loading && !plan.highlighted && price === plan.price && (
+                {selectedPlan === plan.id && !plan.highlighted && (
                   <span className="w-6 h-6 inline-block align-middle mr-2">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
                     <radialGradient
@@ -186,7 +146,7 @@ export default function PricingPlans() {
                   </svg>
                   </span>
                 )}
-                {loading && plan.highlighted && price === plan.price &&
+                {selectedPlan === plan.id && plan.highlighted &&
                   <span className="w-6 h-6 inline-block align-middle mr-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -264,6 +224,11 @@ export default function PricingPlans() {
             </div>
           ))}
         </div>
+        {error && (
+          <p role="alert" className="mt-8 text-red-600">
+            {error}
+          </p>
+        )}
       </div>
     </section>
   );

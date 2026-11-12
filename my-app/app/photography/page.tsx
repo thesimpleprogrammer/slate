@@ -11,7 +11,6 @@ import TalkToUsSection from "../src/components/letsTalk";
 import HeroContainer from "./HeroContainer";
 import Testimonials from "../src/components/Testimonials";
 import NavbarContainer from "./NavbarContainer";
-// import CheckOut from "../src/components/checkOut";
 
 export default function Photography() {
   return (
@@ -24,7 +23,6 @@ export default function Photography() {
       <ProjectsContainer />
       <Testimonials />
       <PricingPlans />
-      {/* <CheckOut /> */}
       <TalkToUsSection
         contacts={{
           email: "femi@thefjfilms.com",

@@ -134,7 +134,7 @@ jobs:
               \"docker pull ${IMAGE}:${TAG}\",
               \"docker stop ${NAME} || true\",
               \"docker rm ${NAME} || true\",
-              \"docker run -d --restart unless-stopped -p ${PORT}:5000 --name ${NAME} ${IMAGE}:${TAG}\"
+              \"docker run -d --restart unless-stopped --env-file /etc/slate/backend.env -p ${PORT}:5000 --name ${NAME} ${IMAGE}:${TAG}\"
             ]")
 
           echo "command_id=$COMMAND_ID" >> $GITHUB_OUTPUT
