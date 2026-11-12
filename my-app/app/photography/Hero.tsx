@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import photoBg from "../../public/bgPhoto1.png";
+import photoBg from "../../public/photography-hero.jpg";
 import { useUpdateContent } from "./utils/updateContent";
 import { useState } from "react";
 import ReusableEditableText from "../src/components/ReuseableEditableText";
@@ -28,7 +28,7 @@ export default function Hero({ photographyHeroData, userData }: any) {
 
         <div className="w-fit mx-auto md:w-[50%] md:mx-0 text-white z-20">
           {/* <div className="flex flex-col">
-            <h1 className="text-7xl">FJ Films</h1>
+            <h1 className="text-7xl">Ifiok&apos;s Gallery</h1>
             <h3 className="text-2xl">Photography</h3>
           </div> */}
           <div className="py-3 text-2xl text-slate-300 font-bold">

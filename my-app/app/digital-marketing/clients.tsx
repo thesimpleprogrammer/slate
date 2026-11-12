@@ -20,14 +20,14 @@
 
 import Image from "next/image";
 
-import image1 from "../../public/image1.png";
-import image2 from "../../public/image2.png";
-import image3 from "../../public/image3.png";
-import image4 from "../../public/image4.png";
-import image5 from "../../public/image5.png";
-import image6 from "../../public/image6.png";
-import image7 from "../../public/image7.png";
-import image8 from "../../public/image8.png";
+import image1 from "../../public/client-logo-1.png";
+import image2 from "../../public/client-logo-2.png";
+import image3 from "../../public/client-logo-3.png";
+import image4 from "../../public/client-logo-4.png";
+import image5 from "../../public/client-logo-5.png";
+import image6 from "../../public/client-logo-6.png";
+import image7 from "../../public/client-logo-7.png";
+import image8 from "../../public/client-logo-8.png";
 // import logo from "../../../public/logo.png";
 
 export default function Clients() {

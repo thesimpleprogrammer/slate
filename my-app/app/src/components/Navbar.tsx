@@ -13,7 +13,7 @@ export default function Navbar({ user_page, links }: any) {
               href="#"
               className="text-5xl font-bold hover:text-slate-200 transition-colors duration-300 hover:cursor-pointer"
             >
-              FJ Films
+              Ifiok&apos;s Gallery
             </a>
             <>
               <div className={`hidden text-white transform top-0 translate-y-0 lg:flex flex-row justify-between items-center w-[40%]`}>

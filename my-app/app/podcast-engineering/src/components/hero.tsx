@@ -1,6 +1,6 @@
 import Image from "next/image";
 import NavbarContainer from "./navBarContainer";
-import bgImage from "../../../../public/42297.jpg"
+import bgImage from "../../../../public/podcast-studio.jpg"
 
 export default function Hero() {
     return (
@@ -17,7 +17,7 @@ export default function Hero() {
                 <h1 className="underline underline-offset-1 text-white"><i>The</i></h1>
                 <h1 className="underline underline-offset-1 text-white">Worlds <i>Best</i></h1>
                 <h1 className="underline underline-offset-1 text-white">Podcast</h1>
-                <h1 className="underline underline-offset-1 text-white"><i>with</i> Femi</h1>
+                <h1 className="underline underline-offset-1 text-white"><i>with</i> Ifiok</h1>
             </div>
         </div>
     )

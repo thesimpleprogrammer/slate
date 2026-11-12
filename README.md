@@ -4,7 +4,9 @@ A website with a built-in, owner-only content editor. To visitors it is an ordin
 
 I first built this for a client's website at no extra charge, so they could update their own content. This repository is a separate demo copy: it has its own Supabase project, Stripe test account and video service, and shares no data with the client's site.
 
-**Live demo:** [slate-sage.vercel.app](https://slate-sage.vercel.app/). Scroll to the bottom of the home page and click the small **FJ** box to open the login page. Demo credentials are shown there. Please be kind to the demo content.
+**Live demo:** [slate-sage.vercel.app](https://slate-sage.vercel.app/). Scroll to the bottom of the home page and click the small **IG** box to open the login page. Demo credentials are shown there. Please be kind to the demo content.
+
+> **Status:** the site and in-place text and image editing are live. The video compression service ran on AWS EC2 until January 2026, when my AWS account was closed after I stopped paying for it. Video uploads are switched off on the live demo; the service's code, tests, Dockerfile and deployment pipeline are all in this repository.
 
 ## Features
 
@@ -22,7 +24,7 @@ flowchart LR
   Next --> Supabase["Supabase<br/>Auth · Postgres · Storage"]
   Next --> Stripe["Stripe Checkout"]
   Stripe -- webhook --> Next
-  Browser -- "video upload + session token" --> Video["Video service<br/>Express + FFmpeg (Docker on EC2)"]
+  Browser -- "video upload + session token" --> Video["Video service<br/>Express + FFmpeg<br/>(Docker, ran on EC2 until Jan 2026)"]
   Video -- "verify token" --> Supabase
 ```
 
@@ -57,12 +59,11 @@ Each upload gets its own temporary files, which are deleted whether the job succ
 ## Deployment pipeline
 
 - **CI** (`.github/workflows/ci-pipeline.yaml`): runs the backend test suite on every pull request to `main` or `staging`.
-- **CD** (`.github/workflows/cd-pipeline.yaml`):
+- **CD** (`.github/workflows/cd-pipeline.yaml`), used while the service ran on AWS:
   - Tests, then builds the Docker image and pushes it to Docker Hub with an immutable commit-SHA tag.
   - Authenticates to AWS with GitHub's OIDC provider, so no long-lived AWS keys are stored in GitHub.
-  - Deploys to EC2 through AWS SSM, with no SSH. Containers listen only on localhost: production on port 5001, staging on 5002. Nginx terminates HTTPS and forwards to production.
+  - Deploys to EC2 through AWS SSM, with no SSH. Pushes to `staging` deploy a staging container; published releases update production.
   - The container reads its settings from `/etc/slate/backend.env` on the instance.
-  - The Nginx site config is in `deploy/nginx-slate.conf`.
 
 ## Running locally
 
@@ -87,6 +88,7 @@ npm run dev               # http://localhost:3000
 
 This is a demo, and these are deliberate trade-offs or next steps:
 
+- The video service is not currently hosted (see Status above). Running it again needs any Docker host with an HTTPS address; set `NEXT_PUBLIC_VIDEO_API_URL` on the site to point at it.
 - There is a single owner account and no sign-up. That is by design for a personal site.
 - Stripe payments are logged but don't unlock anything, since the demo has no paid features.
 - The Supabase table and storage policies are managed in the Supabase dashboard and aren't yet version-controlled as migrations.

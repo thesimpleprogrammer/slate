@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import contentImage from "../../public/FemiImage1.jpg";
+import contentImage from "../../public/photographer-portrait.jpg";
 import { useUpdateContent } from "./utils/updateContent";
 import { useState } from "react";
 import ReusableEditableText from "../src/components/ReuseableEditableText";
@@ -17,7 +17,7 @@ export default function About({ photographyAboutData, userData }: any) {
   return (
     <div className="w-full bg-white" id="About">
       <div className="px-16 py-20 text-center lg:text-left">
-        <h1 className="text-3xl">FJ Films is Happy to Meet You</h1>
+        <h1 className="text-3xl">Ifiok&apos;s Gallery is Happy to Meet You</h1>
         <div className="w-full flex flex-col lg:flex-row mt-5 gap-10 items-center">
           <div className="flex flex-col w-full items-center lg:items-start lg:w-2/3 gap-20">
             <div className="w-full flex flex-col lg:flex-row gap-16">

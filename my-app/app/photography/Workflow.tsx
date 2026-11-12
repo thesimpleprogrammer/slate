@@ -1,9 +1,6 @@
 "use client";
 
 import Image from "next/image";
-// import chineseGate from "../../public/12049.jpg";
-// import wedding from "../../public/2150639515.jpg";
-// import family from "../../public/2151295378.jpg";
 import path1 from "../../public/Vector 2.png";
 import path2 from "../../public/Vector 3.png";
 import { useState, useEffect } from "react";
@@ -42,7 +39,7 @@ export default function Workflow({ photographyWorkflowData, userData }: any) {
       <div className="px-16 py-20 text-center lg:text-left">
         <div className="mb-10 w-full lg:w-[70%]">
           <h1 className="text-4xl mb-5">How we Create Lasting Memories</h1>
-          <p>At FJ FILMS, lasting moments are created through vision, creativity, and connection. Every shot is carefully crafted to capture both beauty and emotion, transforming simple scenes into timeless stories to be treasured for years.</p>
+          <p>At Ifiok&apos;s Gallery, lasting moments are created through vision, creativity, and connection. Every shot is carefully crafted to capture both beauty and emotion, transforming simple scenes into timeless stories to be treasured for years.</p>
         </div>
         <div>
           <div className="flex flex-col lg:flex-row w-full gap-10 items-center">

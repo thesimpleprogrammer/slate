@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import jeanImage from "../../public/preview.jpg";
+import jeanImage from "../../public/denim-dark.jpg";
 import ImageLoop from "./src/component/ImageLoop";
 import { useState } from "react";
 import ReusableEditableText from "../src/components/ReuseableEditableText";

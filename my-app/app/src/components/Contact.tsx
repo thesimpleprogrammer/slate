@@ -147,12 +147,12 @@ export default function ContactUs() {
       <div className="flex justify-center lg:justify-between w-full gap-5 lg:text-left flex-wrap lg:flex-nowrap">
         <div className="flex flex-col gap-5 w-full md:w-[40%] lg:w-1/4 py-5 lg:pr-5">
           <h1 className="text-4xl">
-            FJ Films
+            Ifiok&apos;s Gallery
             {/* <span className="ml-3 text-xl font-semibold">ROOFING</span> */}
           </h1>
           <p className="">
-            Far far away, behind the word mountains, far from the countries
-            Vokalia and Consonantia, there live the blind texts.
+            Photography, film and media production for weddings, brands and
+            events. Tell us what you&apos;re planning and we&apos;ll help you capture it.
           </p>
 
           <span className="flex items-center mt-3 w-fit mx-auto lg:mx-0">
@@ -234,9 +234,9 @@ export default function ContactUs() {
                   fill="#FFFFFF"
                 />
               </svg>
-              <p>+13016605267</p>
+              <p>+12025550147</p>
             </div>
-            <a href="mailto:femi@thefjfilms.com" className="flex items-center justify-center lg:justify-normal gap-4 hover:text-[#f4d03f] hover:cursor-pointer">
+            <a href="mailto:hello@example.com" className="flex items-center justify-center lg:justify-normal gap-4 hover:text-[#f4d03f] hover:cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -249,7 +249,7 @@ export default function ContactUs() {
                   fill="#FFFFFF"
                 />
               </svg>
-              <p>femi@thefjfilms.com</p>
+              <p>hello@example.com</p>
             </a>
           </div>
         </div>
@@ -257,7 +257,7 @@ export default function ContactUs() {
 
       <div className="pt-16">
         <p>
-          Copyright © 2024 All rights reserved | This template is made with Love
+          Copyright © 2024 All rights reserved | Demo site built with Slate CMS
           by OakWeb
         </p>
       </div>

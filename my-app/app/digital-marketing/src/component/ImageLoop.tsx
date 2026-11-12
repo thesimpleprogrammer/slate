@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import loop1 from "../../../../public/2073.jpg";
-import loop2 from "../../../../public/2074.jpg";
-import loop3 from "../../../../public/2077.jpg";
+import loop1 from "../../../../public/marketing-1.jpg";
+import loop2 from "../../../../public/marketing-2.jpg";
+import loop3 from "../../../../public/marketing-3.jpg";
 
 export default function ImageLoop() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);

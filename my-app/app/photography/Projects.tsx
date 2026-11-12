@@ -1,14 +1,7 @@
 "use client";
 
 import Image from "next/image";
-// import image1 from "../../public/410.jpg";
-// import image2 from "../../public/4714.jpg";
-// import image3 from "../../public/24400.jpg";
-// import image4 from "../../public/30540.jpg";
-// import image5 from "../../public/30587840_7545052.jpg";
-// import image6 from "../../public/2150639515.jpg";
-// import image7 from "../../public/2151295378.jpg";
-// import image8 from "../../public/12049.jpg";
+import Link from "next/link";
 import { Modal } from "./Modal";
 import { useState, useEffect, useCallback } from "react";
 import { uploadImage, deleteImage, uploadData } from "./utils/uploadLogic";
@@ -211,9 +204,9 @@ export default function Projects({
               <div>No projects available.</div>
             )}
           </div>
-          <a href="https://fjfilmsstudio.passgallery.com/client" className="underline underline-offset-2 text-lg py-5">
-            View More
-          </a>
+          <Link href="/#Contact-Us" className="underline underline-offset-2 text-lg py-5">
+            Get in touch
+          </Link>
         </div>
       </div>
       {open && <Modal onClose={onClose} src={source} text={txt} alt={alt} />}

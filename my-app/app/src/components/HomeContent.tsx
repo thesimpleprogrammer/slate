@@ -25,7 +25,7 @@ export default async function HomeContent() {
         </div> : <a href='/login' className='py-2 px-4 border-white border bg-transparent hover:bg-white hover:text-black transition-colors duration-300 mr-10'>Login</a>}
       <div className="w-[40%] mx-auto">
         <div className="text-white text-center text-md mb-5">
-          <h1 className="text-3xl mb-3">FJ Films</h1>
+          <h1 className="text-3xl mb-3">Ifiok&apos;s Gallery</h1>
           <h3>SERVICES YOU CAN TRUST NOW AND ALWAYS</h3>
         </div>
         <div className="w-fit mx-auto flex flex-row gap-5 py-4 fill-white mb-3">
@@ -56,7 +56,7 @@ export default async function HomeContent() {
         </div>
       </div>
       <a href="/login" className="text-white border border-white w-[25px] h-[25px] text-sm flex flex-col text-center justify-center mx-auto mt-20">
-        FJ
+        IG
       </a>
     </div>
   );

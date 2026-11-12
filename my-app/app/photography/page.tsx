@@ -25,15 +25,15 @@ export default function Photography() {
       <PricingPlans />
       <TalkToUsSection
         contacts={{
-          email: "femi@thefjfilms.com",
-          phone: "+13018511352",
-          whatsapp: "http://wa.me/13018511352",
+          email: "hello@example.com",
+          phone: "+12025550147",
+          whatsapp: "http://wa.me/12025550147",
           calendly: "https://calendly.com/mysite/demo",
           twitterDM: "https://x.com/messages/compose?recipient_id=123456",
-          instagram: "https://instagram.com/fjfilmz",
+          instagram: "https://instagram.com/",
           telegram: "https://t.me/mysite",
           discord: "https://discord.gg/abc123",
-          liveChat: "+13018511352",
+          liveChat: "+12025550147",
           location: "https://maps.google.com/?q=My%20Studio",
           website: "https://mysite.com/help",
         }}
