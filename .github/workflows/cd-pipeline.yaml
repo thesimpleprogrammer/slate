@@ -107,11 +107,11 @@ jobs:
           if [[ "${{ github.event_name }}" == "push" ]]; then
             echo "TAG=staging" >> $GITHUB_OUTPUT
             echo "NAME=slate-staging" >> $GITHUB_OUTPUT
-            echo "PORT=8080" >> $GITHUB_OUTPUT
+            echo "PORT=5002" >> $GITHUB_OUTPUT   # staging, local only
           else
             echo "TAG=latest" >> $GITHUB_OUTPUT       # runs prod with :latest
             echo "NAME=slate-prod" >> $GITHUB_OUTPUT
-            echo "PORT=80" >> $GITHUB_OUTPUT
+            echo "PORT=5001" >> $GITHUB_OUTPUT   # production, behind Nginx on 443
           fi
 
       - name: Deploy via SSM (pull, stop, replace, run)
@@ -134,7 +134,7 @@ jobs:
               \"docker pull ${IMAGE}:${TAG}\",
               \"docker stop ${NAME} || true\",
               \"docker rm ${NAME} || true\",
-              \"docker run -d --restart unless-stopped -p ${PORT}:5000 --name ${NAME} ${IMAGE}:${TAG}\"
+              \"docker run -d --restart unless-stopped --env-file /etc/slate/backend.env -p 127.0.0.1:${PORT}:5000 --name ${NAME} ${IMAGE}:${TAG}\"
             ]")
 
           echo "command_id=$COMMAND_ID" >> $GITHUB_OUTPUT

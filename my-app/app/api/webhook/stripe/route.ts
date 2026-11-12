@@ -40,13 +40,16 @@ export async function POST(request: Request) {
     return new NextResponse(`Webhook Error: ${err.message}`, { status: 400 });
   }
 
-  // Handle event types
+  // Demo site: payments are recorded in the logs only. A real product would
+  // activate or renew the customer's plan here.
   switch (event.type) {
-    case "checkout.session.completed":
-      console.log("✅ Checkout session completed:", event.data.object);
+    case "checkout.session.completed": {
+      const session = event.data.object;
+      console.log(`Checkout completed: session ${session.id}, plan ${session.metadata?.planId ?? "unknown"}`);
       break;
+    }
     case "invoice.payment_succeeded":
-      console.log("💰 Subscription payment succeeded:", event.data.object);
+      console.log(`Subscription payment succeeded: invoice ${event.data.object.id}`);
       break;
     default:
       console.log(`Unhandled event type: ${event.type}`);

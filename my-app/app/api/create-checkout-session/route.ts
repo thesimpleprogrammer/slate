@@ -1,109 +1,52 @@
-// import Stripe from 'stripe';
-// import { NextResponse } from 'next/server';
-
-// if (!process.env.STRIPE_SECRET_KEY) {
-//   throw new Error('STRIPE_SECRET_KEY environment variable is not set.');
-// }
-// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-
-// export async function POST() {
-//   try {
-//     const session = await stripe.checkout.sessions.create({
-//       // payment_method_types: ['card'],
-//       mode: 'payment',
-//       ui_mode: 'embedded',
-//       line_items: [
-//         {
-//           price_data: {
-//             currency: 'usd',
-//             product_data: { name: 'Test Product' },
-//             unit_amount: 2000, // $20.00
-//           },
-//           quantity: 1,
-//         },
-//       ],
-//       return_url: 'http://localhost:3000/return?session_id={CHECKOUT_SESSION_ID}'
-//       // success_url: 'http://localhost:3000/success',
-//       // cancel_url: 'http://localhost:3000/cancel',
-//     });
-
-//     return NextResponse.json({ checkoutSessionClientSecret: session.client_secret });
-//   } catch (err) {
-//     return NextResponse.json({ error: err }, { status: 500 });
-//   }
-// }
-// import Stripe from "stripe";
-// import { NextResponse } from 'next/server'
-
-// if (!process.env.STRIPE_SECRET_KEY) {
-//   throw new Error('STRIPE_SECRET_KEY environment variable is not set.');
-// }
-// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
-
-// export async function POST(request: Request) {
-//   const body = await request.json()
-
-//   const session = await stripe.checkout.sessions.create({
-//       payment_method_types: ['card'],
-//       line_items: [
-//         {
-//           price_data: {
-//             currency: 'usd',
-//             product_data: {
-//               name: 'Your Product Name',
-//             },
-//             unit_amount: 1000, // Price in cents
-//           },
-//           quantity: 1,
-//         },
-//       ],
-//       mode: 'payment',
-//       success_url: `localhost:3000/success`,
-//       cancel_url: `localhost:3000/cancel`,
-//     });
-  
-//   return NextResponse.json({ sessionId: session.id })
-// }
-
-// app/api/checkout-sessions/route.ts
 import Stripe from "stripe";
 import { NextResponse } from "next/server";
+import { findPlan } from "../../src/lib/plans";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-03-31.basil",
 });
 
 export async function POST(request: Request) {
+  let planId: unknown;
   try {
-    const origin = request.headers.get("origin");
-    const body = await request.json();
-    // console.log("Request body:", body);
+    ({ planId } = await request.json());
+  } catch {
+    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
 
+  // The price comes from the server's plan list, never from the browser.
+  const plan = findPlan(planId);
+  if (!plan) {
+    return NextResponse.json({ error: "Unknown plan" }, { status: 400 });
+  }
+
+  const origin =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    request.headers.get("origin") ??
+    new URL(request.url).origin;
+
+  try {
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
+      mode: "subscription",
       line_items: [
         {
+          quantity: 1,
           price_data: {
             currency: "usd",
-            product_data: {
-              name: "Your Product Name",
-            },
-            unit_amount: body.itemPrice, // Price in cents
+            unit_amount: plan.priceUsd * 100,
+            recurring: { interval: "month" },
+            product_data: { name: `Slate ${plan.name} plan` },
           },
-          quantity: 1,
         },
       ],
-      mode: "payment",
-      success_url: `${origin}/success`,
+      metadata: { planId: plan.id },
+      success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/cancel`,
     });
 
-    return NextResponse.json({ id: session.id });
-  } catch (err: any) {
-    return NextResponse.json(
-      { error: err.message },
-      { status: 500 },
-    );
+    return NextResponse.json({ url: session.url });
+  } catch (err) {
+    console.error("Stripe checkout session creation failed:", err);
+    return NextResponse.json({ error: "Could not start checkout" }, { status: 500 });
   }
 }
