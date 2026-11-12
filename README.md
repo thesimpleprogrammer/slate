@@ -60,8 +60,9 @@ Each upload gets its own temporary files, which are deleted whether the job succ
 - **CD** (`.github/workflows/cd-pipeline.yaml`):
   - Tests, then builds the Docker image and pushes it to Docker Hub with an immutable commit-SHA tag.
   - Authenticates to AWS with GitHub's OIDC provider, so no long-lived AWS keys are stored in GitHub.
-  - Deploys to EC2 through AWS SSM, with no SSH. Pushes to `staging` run on port 8080; published releases update production on port 80.
+  - Deploys to EC2 through AWS SSM, with no SSH. Containers listen only on localhost: production on port 5001, staging on 5002. Nginx terminates HTTPS and forwards to production.
   - The container reads its settings from `/etc/slate/backend.env` on the instance.
+  - The Nginx site config is in `deploy/nginx-slate.conf`.
 
 ## Running locally
 
@@ -88,5 +89,4 @@ This is a demo, and these are deliberate trade-offs or next steps:
 
 - There is a single owner account and no sign-up. That is by design for a personal site.
 - Stripe payments are logged but don't unlock anything, since the demo has no paid features.
-- The video service needs an HTTPS address in production (for example Nginx with a Let's Encrypt certificate in front of the container). Otherwise browsers block uploads from the HTTPS site.
 - The Supabase table and storage policies are managed in the Supabase dashboard and aren't yet version-controlled as migrations.
