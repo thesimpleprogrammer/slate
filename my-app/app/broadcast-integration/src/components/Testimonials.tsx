@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import person1 from "../../../../public/person1.jpg";
-import person2 from "../../../../public/person2.jpg";
-import person3 from "../../../../public/person3.jpg";
-import person4 from "../../../../public/person4.jpg";
+import person1 from "../../../../public/client-1.jpg";
+import person2 from "../../../../public/client-2.jpg";
+import person3 from "../../../../public/client-3.jpg";
+import person4 from "../../../../public/client-4.jpg";
 import React from "react";
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css";

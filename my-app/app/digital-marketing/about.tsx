@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import lightJean from "../../public/lightJeans.png";
+import lightJean from "../../public/denim-light.jpg";
 import arrow from "../../public/arrow.png";
 import line from "../../public/line.png";
 import { useUpdateContent } from "./src/component/updateContent";
