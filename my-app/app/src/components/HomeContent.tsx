@@ -19,10 +19,45 @@ export default async function HomeContent() {
   
   return (
     <div className="w-full pt-28 pb-10 text-white text-center md:text-right">
-        {data?.user ? <div className='text-white p-5'>
-          <h1 className='mb-3'>Welcome {data.user.email}</h1>
-          <p>Look through our list of services</p>
-        </div> : <a href='/login' className='py-2 px-4 border-white border bg-transparent hover:bg-white hover:text-black transition-colors duration-300 mr-10'>Login</a>}
+        {data?.user ? (
+          <section
+            aria-label="Edit mode"
+            className="mx-auto mb-14 w-[90%] max-w-2xl border border-white/25 bg-white/[0.03] px-6 py-6 text-center"
+          >
+            <p className="text-xs tracking-[0.3em] text-white/60">EDIT MODE</p>
+            <h2 className="mt-2 text-2xl">You&apos;re logged in</h2>
+            <p className="mt-3 text-sm leading-relaxed text-white/70">
+              Signed in as {data.user.email}. Open any service below, then click a
+              heading, paragraph, image or video to change it. Changes save straight
+              to the live site.
+            </p>
+          </section>
+        ) : (
+          <section
+            aria-label="Demo access"
+            className="mx-auto mb-14 w-[90%] max-w-2xl border border-white/25 bg-white/[0.03] px-6 py-6 text-center"
+          >
+            <p className="text-xs tracking-[0.3em] text-white/60">LIVE DEMO</p>
+            <h2 className="mt-2 text-2xl">Try the built-in editor</h2>
+            <p className="mt-3 text-sm leading-relaxed text-white/70">
+              No sign-up needed. Log in with the demo account to edit any text, image
+              or video on this site, right where it appears.
+            </p>
+            <div className="mt-5 flex flex-col items-center justify-center gap-3 text-sm sm:flex-row sm:gap-6">
+              <span className="font-mono text-white/80">demo@example.com · Test@1234</span>
+              <a
+                href="/login"
+                className="border border-white px-5 py-2 transition-colors duration-300 hover:bg-white hover:text-black"
+              >
+                Log in to the demo &rarr;
+              </a>
+            </div>
+            <p className="mt-4 text-xs text-white/40">
+              On a real client&apos;s site, this login is hidden behind the small IG box at
+              the bottom of the page.
+            </p>
+          </section>
+        )}
       <div className="w-[40%] mx-auto">
         <div className="text-white text-center text-md mb-5">
           <h1 className="text-3xl mb-3">Ifiok&apos;s Gallery</h1>

@@ -44,17 +44,16 @@ export default function LoginForm() {
   return (
     <div className='w-full h-screen flex flex-col justify-center items-center gap-7'>
       <ToastContainer />
-      <div className='text-white w-[40%]'>
-        <h1>For testing purposes only !!!</h1>
-        <h2>Email: demo@example.com</h2>
-        <h2>Password: Test@1234</h2>
+      <div className='text-white w-[90%] max-w-md border border-white/25 bg-white/[0.03] px-5 py-4'>
+        <p className='text-xs tracking-[0.3em] text-white/60'>DEMO ACCOUNT</p>
+        <p className='mt-2 text-sm text-white/70'>The demo login is filled in for you. Just press Log in.</p>
       </div>
-      <h1 className='text-white text-3xl w-[40%]'>Login</h1>
-      <form onSubmit={handleSubmit} className='text-white flex flex-col gap-3 w-[40%]'>
+      <h1 className='text-white text-3xl w-[90%] max-w-md'>Login</h1>
+      <form onSubmit={handleSubmit} className='text-white flex flex-col gap-3 w-[90%] max-w-md'>
         <label htmlFor="email">Email:</label>
-        <input id="email" name="email" type="email" className='border border-white p-3 focus:outline-none focus:bg-transparent' required />
+        <input id="email" name="email" type="email" defaultValue="demo@example.com" className='border border-white p-3 focus:outline-none focus:bg-transparent' required />
         <label htmlFor="password">Password:</label>
-        <input id="password" name="password" type="password" className='border focus:outline-none border-white p-3 focus:bg-transparent' required />
+        <input id="password" name="password" type="password" defaultValue="Test@1234" className='border focus:outline-none border-white p-3 focus:bg-transparent' required />
         <button type="submit" disabled={loading} className='py-3 bg-white text-black hover:cursor-pointer w-full transition-colors border border-transparent duration-300 hover:text-white hover:bg-transparent hover:border hover:border-white text-center mt-7'>
           {loading ? 'Logging in...' : 'Log in'}
         </button>
