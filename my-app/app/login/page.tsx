@@ -46,7 +46,7 @@ export default function LoginForm() {
       <ToastContainer />
       <div className='text-white w-[40%]'>
         <h1>For testing purposes only !!!</h1>
-        <h2>Email: test@gmail.com</h2>
+        <h2>Email: demo@example.com</h2>
         <h2>Password: Test@1234</h2>
       </div>
       <h1 className='text-white text-3xl w-[40%]'>Login</h1>
